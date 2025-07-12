@@ -333,6 +333,9 @@
         function update() {
             if (!gameRunning) return;
 
+            // 如果蛇还没有移动方向，不更新
+            if (dx === 0 && dy === 0) return;
+
             const head = { x: snake[0].x + dx, y: snake[0].y + dy };
 
             // 检查边界碰撞
@@ -366,6 +369,13 @@
         // 开始游戏
         function startGame() {
             if (gameRunning) return;
+            
+            // 如果是第一次开始或重新开始，给蛇一个初始方向
+            if (dx === 0 && dy === 0) {
+                dx = 1; // 默认向右移动
+                dy = 0;
+            }
+            
             gameRunning = true;
             gameLoop = setInterval(update, 150);
         }
